@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="org.3screens.cordova.wireless-network-information" version="0.0.1-dev">
+
+    <name>Wireless Network Information</name>
+    <description>Cordova Wireless Network Information Plugin</description>
+    <keywords>cordova,network,information, wwan, wireless, ios7</keywords>
+	<repo>https://github.com/gordol/cordova-plugin-wwan-network-information.git</repo>
+	<issue>https://github.com/gordol/cordova-plugin-wwan-network-information/issues</issue>
+
+    <js-module src="www/network.js" name="network">
+        <clobbers target="navigator.wirelessConnection" />
+    </js-module>
+
+    <!-- ios7+ -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="WirelessNetworkInfo">
+                <param name="ios-package" value="TelephonyNetworkInfo" />
+            </feature>
+        </config-file>
+
+        <header-file src="src/ios/TelephonyNetworkInfo.h" />
+	    <source-file src="src/ios/TelephonyNetworkInfo.m" />
+	    <framework src="CoreTelephony.framework" weak="true" />
+    </platform>
+
+</plugin>

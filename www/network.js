@@ -12,9 +12,9 @@ WirelessNetworkConnection.prototype.getType = function(successCallback, errorCal
     exec(successCallback, errorCallback, "WirelessNetworkInfo", "getCurrentAccessTechnology", []);
 };
 
-//posts requestBody to URL, and check for 200 status
+//post to URL and check for 200 status
 WirelessNetworkConnection.prototype.testConnectivity = function(url, successCallback, errorCallback) {
-    exec(successCallback, errorCallback, "WirelessNetworkInfo", "testServerConnectivity", [url, requestBody]);
+    exec(successCallback, errorCallback, "WirelessNetworkInfo", "testServerConnectivity", [url]);
 };
 
 var me = new WirelessNetworkConnection();

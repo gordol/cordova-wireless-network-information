@@ -1,6 +1,7 @@
 #import "TelephonyNetworkInfo.h"
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
+
 @implementation TelephonyNetworkInfo
 
 - (void)getCurrentAccessTechnology:(CDVInvokedUrlCommand*)command
@@ -22,20 +23,14 @@
 	}];
 }
 
-- (BOOL)testServerConnectivity:(CDVInvokedUrlCommand*)command;
+- (void)testServerConnectivity:(CDVInvokedUrlCommand*)command;
 {
-	NSURL* url=[command.arguments objectAtIndex:0];
-	NSLog(@"url is %@", url);
-
-	NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
-
+    NSURL *url = [[NSURL alloc] initWithString:[command.arguments objectAtIndex:0]];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:url];
 	[request setHTTPMethod:@"GET"];
-
 	NSHTTPURLResponse *response;
 	[NSURLConnection sendSynchronousRequest:request returningResponse:&response error: NULL];
-
 	CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:([response statusCode]==200)?YES:NO];
-
 	[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 

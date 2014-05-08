@@ -34,7 +34,13 @@
 	NSHTTPURLResponse *response;
 	[NSURLConnection sendSynchronousRequest:request returningResponse:&response error: NULL];
 
-	return ([response statusCode]==200)?YES:NO;
+	if (([response statusCode]==200)?YES:NO == YES) {
+		CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES;
+	} else { 
+		CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsBool:NO];
+	}
+
+	[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
 //todo: fixme: init with webview

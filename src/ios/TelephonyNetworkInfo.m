@@ -34,11 +34,7 @@
 	NSHTTPURLResponse *response;
 	[NSURLConnection sendSynchronousRequest:request returningResponse:&response error: NULL];
 
-	if ([response statusCode] == 200) {
-		CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:YES];
-	} else { 
-		CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsBool:NO];
-	}
+	CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:([response statusCode]==200)?YES:NO];
 
 	[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }

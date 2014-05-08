@@ -22,6 +22,9 @@ var me = new WirelessNetworkConnection();
 channel.createSticky('onCordovaWirelessConnectionReady');
 channel.waitForInitialization('onCordovaWirelessConnectionReady');
 
+channel.createSticky('onCordovaConnectionTestReady');
+channel.waitForInitialization('onCordovaConnectionTestReady');
+
 channel.onCordovaReady.subscribe(function() {
 	var timerId = null;
     me.getType(function(type) {
@@ -30,7 +33,7 @@ channel.onCordovaReady.subscribe(function() {
             timerId = setTimeout(function(){
                 cordova.fireDocumentEvent("WWANOffline");
                 timerId = null;
-            }, 5000);
+            }, 500);
         } else {
             if (timerId !== null) {
                 clearTimeout(timerId);
@@ -47,7 +50,7 @@ channel.onCordovaReady.subscribe(function() {
         if (channel.onCordovaWirelessConnectionReady.state !== 2) {
             channel.onCordovaWirelessConnectionReady.fire();
         }
-        console.log("Error initializing Wireless Network Connection: " + e);
+        console.log("Error initializing wireless network connection: " + e);
     });
 });
 
@@ -58,7 +61,7 @@ channel.onCordovaReady.subscribe(function() {
             timerId = setTimeout(function(){
                 cordova.fireDocumentEvent("ConnectionTestFailed");
                 timerId = null;
-            }, 60000);
+            }, 500);
         } else {
             if (timerId !== null) {
                 clearTimeout(timerId);
@@ -67,15 +70,15 @@ channel.onCordovaReady.subscribe(function() {
             cordova.fireDocumentEvent("ConnectionTestSuccess");
         }
 
-        if (channel.onCordovaWirelessConnectionReady.state !== 2) {
-            channel.onCordovaWirelessConnectionReady.fire();
+        if (channel.onCordovaConnectionTestReady.state !== 2) {
+            channel.onCordovaConnectionTestReady.fire();
         }
     },
     function (e) {
-        if (channel.onCordovaWirelessConnectionReady.state !== 2) {
-            channel.onCordovaWirelessConnectionReady.fire();
+        if (channel.onCordovaConnectionTestReady.state !== 2) {
+            channel.onCordovaConnectionTestReady.fire();
         }
-        console.log("Error initializing Wireless Network Connection: " + e);
+        console.log("Error testing wireless connectivity: " + e);
     });
 });
 

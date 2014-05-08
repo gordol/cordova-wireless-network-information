@@ -24,16 +24,12 @@
 
 - (BOOL)testServerConnectivity:(CDVInvokedUrlCommand*)command;
 {
-	NSURL *url=[NSURL URLWithString:argumentAtIndex:0];
+	NSURL* url=[command.arguments objectAtIndex:0];
 	NSLog(@"url is %@", url);
 
 	NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
 
-	[request setHTTPMethod:@"POST"];
-	[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-	[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-	[request setValue:[NSString stringWithFormat:@"%d", [requestData length]] forHTTPHeaderField:@"Content-Length"];
-	[request setHTTPBody: requestData];
+	[request setHTTPMethod:@"GET"];
 
 	NSHTTPURLResponse *response;
 	[NSURLConnection sendSynchronousRequest:request returningResponse:&response error: NULL];

@@ -39,6 +39,4 @@
 	[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
-//todo: fixme: init with webview
-
 @end

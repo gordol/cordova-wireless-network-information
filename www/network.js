@@ -2,6 +2,7 @@
 var exec = require('cordova/exec'),
     cordova = require('cordova'),
     channel = require('cordova/channel'),
+    channel2 = require('cordova/channel'),
     utils = require('cordova/utils');
 
 function WirelessNetworkConnection() {
@@ -22,8 +23,8 @@ var me = new WirelessNetworkConnection();
 channel.createSticky('onCordovaWirelessConnectionReady');
 channel.waitForInitialization('onCordovaWirelessConnectionReady');
 
-channel.createSticky('onCordovaConnectionTestReady');
-channel.waitForInitialization('onCordovaConnectionTestReady');
+channel2.createSticky('onCordovaConnectionTestReady');
+channel2.waitForInitialization('onCordovaConnectionTestReady');
 
 channel.onCordovaReady.subscribe(function() {
 	var timerId = null;
@@ -54,7 +55,7 @@ channel.onCordovaReady.subscribe(function() {
     });
 });
 
-channel.onCordovaReady.subscribe(function() {
+channel2.onCordovaReady.subscribe(function() {
 	var timerId = null;
     me.testConnectivity('http://field-agent.net/api/echo?Message=ping', function(online) {
         if (online === false){
@@ -70,13 +71,13 @@ channel.onCordovaReady.subscribe(function() {
             cordova.fireDocumentEvent("ConnectionTestSuccess");
         }
 
-        if (channel.onCordovaConnectionTestReady.state !== 2) {
-            channel.onCordovaConnectionTestReady.fire();
+        if (channel2.onCordovaConnectionTestReady.state !== 2) {
+            channel2.onCordovaConnectionTestReady.fire();
         }
     },
     function (e) {
-        if (channel.onCordovaConnectionTestReady.state !== 2) {
-            channel.onCordovaConnectionTestReady.fire();
+        if (channel2.onCordovaConnectionTestReady.state !== 2) {
+            channel2.onCordovaConnectionTestReady.fire();
         }
         console.log("Error testing wireless connectivity: " + e);
     });

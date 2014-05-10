@@ -32,7 +32,7 @@ channel.onCordovaReady.subscribe(function() {
 		me.type = type;
 		if (type === null){
 			timerId = setTimeout(function(){
-				cordova.fireDocumentEvent("WWANOffline");
+				cordova.fireWindowEvent("WWANOffline");
 				timerId = null;
 			}, 500);
 		} else {
@@ -40,7 +40,7 @@ channel.onCordovaReady.subscribe(function() {
 				clearTimeout(timerId);
 				timerId = null;
 			}
-			cordova.fireDocumentEvent("WWANOnline");
+			cordova.fireWindowEvent("WWANOnline");
 		}
 
 		if (channel.onCordovaWirelessConnectionReady.state !== 2) {
@@ -60,7 +60,7 @@ channel2.onCordovaReady.subscribe(function() {
 	me.testConnectivity('http://field-agent.net/api/echo?Message=ping', function(online) {
 		if (online === false){
 			timerId = setTimeout(function(){
-				cordova.fireDocumentEvent("ConnectionTestFailed");
+				cordova.fireWindowEvent("ConnectionTestFailed");
 				timerId = null;
 			}, 500);
 		} else {
@@ -68,7 +68,7 @@ channel2.onCordovaReady.subscribe(function() {
 				clearTimeout(timerId);
 				timerId = null;
 			}
-			cordova.fireDocumentEvent("ConnectionTestSuccess");
+			cordova.fireWindowEvent("ConnectionTestSuccess");
 		}
 
 		if (channel2.onCordovaConnectionTestReady.state !== 2) {

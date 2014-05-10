@@ -42,7 +42,7 @@
 		CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:([response statusCode]==200)?YES:NO];
 
 		NSLog(@"testServerConnectivity Result: %@", result);
-		NSLog(@"getCurrentAccessTechnology Callback: %@", [command callbackId]);
+		NSLog(@"testServerConnectivity Callback: %@", [command callbackId]);
 
 		[self.commandDelegate sendPluginResult:result callbackId:[command callbackId]];
 	}];

@@ -33,6 +33,7 @@ channel.onCordovaReady.subscribe(function() {
 		if (type === null){
 			timerId = setTimeout(function(){
 				cordova.fireWindowEvent("WWANOffline");
+				console.log('WWANOffline')
 				timerId = null;
 			}, 500);
 		} else {
@@ -41,6 +42,7 @@ channel.onCordovaReady.subscribe(function() {
 				timerId = null;
 			}
 			cordova.fireWindowEvent("WWANOnline");
+			console.log('WWANOnline')
 		}
 
 		if (channel.onCordovaWirelessConnectionReady.state !== 2) {
@@ -61,6 +63,7 @@ channel2.onCordovaReady.subscribe(function() {
 		if (online === false){
 			timerId = setTimeout(function(){
 				cordova.fireWindowEvent("ConnectionTestFailed");
+				console.log('ConnectionTestFailed')
 				timerId = null;
 			}, 500);
 		} else {
@@ -69,6 +72,7 @@ channel2.onCordovaReady.subscribe(function() {
 				timerId = null;
 			}
 			cordova.fireWindowEvent("ConnectionTestSuccess");
+			console.log('ConnectionTestSuccess')
 		}
 
 		if (channel2.onCordovaConnectionTestReady.state !== 2) {

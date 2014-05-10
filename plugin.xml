@@ -16,6 +16,7 @@
         <config-file target="config.xml" parent="/*">
             <feature name="WirelessNetworkInfo">
                 <param name="ios-package" value="TelephonyNetworkInfo" />
+				<param name="onload" value="true" />
             </feature>
         </config-file>
 

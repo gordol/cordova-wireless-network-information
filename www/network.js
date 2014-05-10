@@ -35,7 +35,7 @@ channel.onCordovaReady.subscribe(function() {
 				cordova.fireWindowEvent("WWANOffline");
 				console.log('WWANOffline')
 				timerId = null;
-			}, 500);
+			}, 5000);
 		} else {
 			if (timerId !== null) {
 				clearTimeout(timerId);
@@ -65,7 +65,7 @@ channel2.onCordovaReady.subscribe(function() {
 				cordova.fireWindowEvent("ConnectionTestFailed");
 				console.log('ConnectionTestFailed')
 				timerId = null;
-			}, 500);
+			}, 5000);
 		} else {
 			if (timerId !== null) {
 				clearTimeout(timerId);

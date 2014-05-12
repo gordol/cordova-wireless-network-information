@@ -32,7 +32,7 @@ channel.onCordovaReady.subscribe(function() {
 		me.type = type;
 		if (type === null){
 			timerId = setTimeout(function(){
-				cordova.fireWindowEvent("WWANOffline");
+				cordova.fireDocumentEvent("WWANOffline");
 				console.log('WWANOffline')
 				timerId = null;
 			}, 5000);
@@ -41,7 +41,7 @@ channel.onCordovaReady.subscribe(function() {
 				clearTimeout(timerId);
 				timerId = null;
 			}
-			cordova.fireWindowEvent("WWANOnline");
+			cordova.fireDocumentEvent("WWANOnline");
 			console.log('WWANOnline')
 		}
 
@@ -62,7 +62,7 @@ channel2.onCordovaReady.subscribe(function() {
 	me.testConnectivity('http://field-agent.net/api/echo?Message=ping', function(online) {
 		if (online === false){
 			timerId = setTimeout(function(){
-				cordova.fireWindowEvent("ConnectionTestFailed");
+				cordova.fireDocumentEvent("ConnectionTestFailed");
 				console.log('ConnectionTestFailed')
 				timerId = null;
 			}, 5000);
@@ -71,7 +71,7 @@ channel2.onCordovaReady.subscribe(function() {
 				clearTimeout(timerId);
 				timerId = null;
 			}
-			cordova.fireWindowEvent("ConnectionTestSuccess");
+			cordova.fireDocumentEvent("ConnectionTestSuccess");
 			console.log('ConnectionTestSuccess')
 		}
 

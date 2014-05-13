@@ -5,9 +5,9 @@ var exec     = require('cordova/exec'),
 	channel2 = require('cordova/channel'),
 	utils    = require('cordova/utils');
 
-function WirelessNetworkConnection() {
+var WirelessNetworkConnection = function() {
 	this.type = 'unknown';
-}
+};
 
 WirelessNetworkConnection.prototype.getType = function(successCallback, errorCallback) {
 	exec(successCallback, errorCallback, "WirelessNetworkInfo", "getCurrentAccessTechnology", []);
@@ -18,8 +18,6 @@ WirelessNetworkConnection.prototype.testConnectivity = function(url, successCall
 	exec(successCallback, errorCallback, "WirelessNetworkInfo", "testServerConnectivity", [url]);
 };
 
-var me = new WirelessNetworkConnection();
-
 channel.createSticky('onCordovaWirelessConnectionReady');
 channel.waitForInitialization('onCordovaWirelessConnectionReady');
 
@@ -27,7 +25,8 @@ channel2.createSticky('onCordovaConnectionTestReady');
 channel2.waitForInitialization('onCordovaConnectionTestReady');
 
 channel.onCordovaReady.subscribe(function() {
-	var timerId = null;
+	var timerId = null,
+		me = wirelessnetworkconnection;
 	me.getType(function(type) {
 		me.type = type;
 		if (type === null){
@@ -58,7 +57,8 @@ channel.onCordovaReady.subscribe(function() {
 });
 
 channel2.onCordovaReady.subscribe(function() {
-	var timerId = null;
+	var timerId = null,
+		me = wirelessnetworkconnection;
 	me.testConnectivity('http://field-agent.net/api/echo?Message=ping', function(online) {
 		if (online === false){
 			timerId = setTimeout(function(){
@@ -87,4 +87,6 @@ channel2.onCordovaReady.subscribe(function() {
 	});
 });
 
-module.exports = me;
+var wirelessnetworkconnection = new WirelessNetworkConnection();
+
+module.exports = WirelessNetworkConnection;
